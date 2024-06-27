@@ -30,6 +30,7 @@ export class PostController {
   
    
     postView.commentsButton?.addEventListener("click", () => {
+      commentManager.commentStatus("pending")
       this.fetchCommentsForCurrentPost()
         .then(() => postView.update(commentManager))
         .catch((error) => console.error("Error fetching comments:", error));
@@ -59,6 +60,8 @@ export class PostController {
       if (!response.ok) {
         throw new Error("Failed to fetch comments");
       }
+      const delay = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout));
+      await delay(6000)
       const data = await response.json();
       console.log(data);
       this.commentManager.insertCommentsForPost(data, currentPost.id);

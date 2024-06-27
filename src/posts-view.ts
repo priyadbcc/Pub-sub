@@ -94,7 +94,19 @@ export class PostsView implements Subscriber {
     if (manager instanceof CommentsManager) {
       console.log("jsy");
       console.log(this.postmanager.currentPostIndex);
-
+if (this.status) {
+  switch (manager.commentstatus) {
+    case "pending":
+      this.status.textContent = "Loading...";
+      break;
+    case "success":
+      this.status.textContent = "Comments loaded successfully.";
+      break;
+    case "error":
+      this.status.textContent = "Failed to load posts. Please try again later.";
+      break;
+  }
+}
       if (this.commentsElement) {
         const comments = manager.commentsMap.get(
           this.postmanager.currentPostIndex + 1
@@ -110,6 +122,7 @@ export class PostsView implements Subscriber {
           this.showViewCommentsButton();
         }
       }
+      
     }
   }
 

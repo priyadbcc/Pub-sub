@@ -50,12 +50,13 @@ export class PostManager extends ActualPublisher implements PostsModel {
 }
 
 export class CommentsManager extends ActualPublisher implements CommentsModel {
-  public status: string = "pending";
+  public commentstatus: string = "pending";
   currentPost(): Post | undefined {
     return this.posts[this.currentPostIndex];
   }
-  commentStatus(status: string): void {
-    this.status = status;
+  commentStatus(commentstatus: string): void {
+    this.commentstatus = commentstatus;
+     this.updateSubscribers();
   }
   commentsMap: Map<number, Comment[]> = new Map();
   insertCommentsForPost(comments: Comment[], postId: number): void {
