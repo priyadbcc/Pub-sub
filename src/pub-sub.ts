@@ -1,3 +1,4 @@
+import { Post } from "./post-model";
 export interface Subscriber {
   update: (publisher: Publisher) => void;
 }
@@ -8,6 +9,8 @@ export interface Publisher {
   updateSubscribers: () => void;
 }
 export class ActualPublisher implements Publisher {
+  public currentPostIndex: number = 0;
+  public posts: Post[] = [];
   public subscribers: Subscriber[] = [];
   subscribe(subscriber: Subscriber): void {
     if (!this.subscribers.includes(subscriber)) {
